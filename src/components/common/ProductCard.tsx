@@ -18,18 +18,29 @@ const ProductCard = ({ data, priority = false, isCircle = false }: ProductCardPr
       <div
         className={
           isCircle
-            ? "relative bg-brand-light rounded-[40px] w-[150px] h-[150px] sm:w-[200px] sm:h-[200px] md:w-[240px] md:h-[240px] lg:w-[280px] lg:h-[280px] xl:w-[320px] xl:h-[320px] mx-auto mb-4 overflow-hidden border border-black/5 shadow-sm hover:shadow-xl transition-all duration-500"
-            : "relative bg-brand-light rounded-[20px] w-full aspect-square mb-2.5 xl:mb-4 overflow-hidden border border-black/5"
+            ? "group relative bg-brand-light rounded-[40px] w-[150px] h-[150px] sm:w-[200px] sm:h-[200px] md:w-[240px] md:h-[240px] lg:w-[280px] lg:h-[280px] xl:w-[320px] xl:h-[320px] mx-auto mb-4 overflow-hidden border border-black/5 shadow-sm hover:shadow-xl transition-all duration-500"
+            : "group relative bg-brand-light rounded-[20px] w-full aspect-square mb-2.5 xl:mb-4 overflow-hidden border border-black/5"
         }
       >
         <Image
           src={data.srcUrl}
           fill
           sizes="(max-width: 768px) 50vw, 320px"
-          className="object-cover hover:scale-110 transition-all duration-700 ease-out"
+          className="object-cover group-hover:scale-105 transition-all duration-700 ease-out"
           alt={data.title}
           priority={priority}
         />
+        {data.gallery && data.gallery.length > 1 && (
+          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-in-out">
+            <Image
+              src={data.gallery[1]}
+              fill
+              sizes="(max-width: 768px) 50vw, 320px"
+              className="object-cover scale-100 group-hover:scale-105 transition-transform duration-700 ease-out"
+              alt={`${data.title} - hover`}
+            />
+          </div>
+        )}
       </div>
       <strong className="text-brand xl:text-xl">{data.title}</strong>
       <p className="text-brand/60 text-sm xl:text-base">{data.category}</p>
